@@ -1,8 +1,7 @@
-# santiago
+# Santiago Maldonado - Relato Web
 
-> Relato Web
+## Tecnologias
 
-#Tecnologias
 1. Vue.js
 2. Flexbox
 
