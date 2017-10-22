@@ -1,31 +1,50 @@
-<template>
-    <div :parallax="parallaxEnabled"
-    					:fixed="fixed" 
-    					:section-height="sectionHeight" >
-
-  	  <iframe width="100%" 
-  	  		  height="100%" 
-  	  		  :src="getSrc" 
-  	  		  frameborder="0" 
-  	  		  allowfullscreen>  	  	
-  	  </iframe>
-
-    </div>
+<template>		
+    <youtube   :video-id="videoId"
+  	  				 :player-width="'100%'"
+  	  				 :player-height="clientHeight"
+  	  				 @ready="ready">
+	  </youtube>
 </template>
 
 <script>
-
-	import Parallax from 'vue-parallaxy'
+	
+	import Vue from 'vue'
+	import isInViewport from '../utils.js'
 
 	export default {
 	  name: 'FullVideo',
-	  components: {Parallax},
-	  props: ['videoId', 'parallaxEnabled', 'sectionHeight', 'fixed'],
-	  computed: {
-	  	getSrc () {      
-	      return 'http://www.youtube.com/embed/' + this.videoId + '?autoplay=0&showinfo=0&controls=0'
+	  data () {
+	  	return{
+	  		player: null
+	  	}
+	  },
+	  components: {},
+	  props: ['videoId', 'clientHeight', 'activeVideoId'],
+	  mounted: () => {
+	  	
+	  },
+	  methods:{
+	  	ready (player) {
+	      this.player = player
+	    },
+	  	play(){
+  			console.log("PLAY!");
+	  		if( this.player ){
+	  			this.player.playVideo()
+	  		}
+	  	},
+	  	pause(){
+	  		console.log("PAUSE!");
+	  		if( this.player )
+	  			this.player.pauseVideo()
+	  	}
+	  },
+	  watch: {
+	    activeVideoId: function (activeVideoId) {
+	      this.videoId == activeVideoId ? this.play() : this.pause()
 	    }
 	  }
+
 	}
 
 </script>
