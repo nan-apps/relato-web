@@ -1,8 +1,97 @@
-body{
-	margin: 0;
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-div.container{
+body{
+	margin: 0;
+	background-color: $backgroundColor;
+	color: $fontColor;
+}
+
+div.column{
 	display: flex;
 	flex-direction: column;
+}
+
+div.row{
+	display: flex;
+	flex-direction: row;
+	@media screen and (max-width : $breakMobile) {
+	    flex-direction: column;
+	}
+}
+
+
+.the-title{
+	font-size: $titleFontSize;
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 0.1em;
+}
+
+.subtitle{
+	font-size: $subtitleFontSize;
+	text-align: center;	
+}
+
+p.txt{
+	font-size: $textFontSize;
+	text-align: justify;
+	padding: 25px;
+	padding-bottom: 0;
+	margin: 0;
+	align-self: flex-end;
+}
+
+div.pic-container{
+	background-color: $imgBackgroundColor;
+	img.pic{
+		display: block;
+		margin: auto;
+		@media screen and (max-width: $breakMobile) {
+			width: 100%;
+			height: auto !important;
+		}
+	}
+}
+
+.color-inverse{
+	background-color: $fontColor;
+	color: $backgroundColor;
+}
+
+/* helpers */
+
+.align-bottom{
+	margin-top: auto;
+}
+
+.align-middle{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.row{
+	.row2{
+		flex-grow:2;
+	}
+}
+.pull-right{
+	float: right;
+}
+.muted{
+	color: $mutedColor;
+}
+
+
+/* effects */
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to{
+  opacity: 0
 }

@@ -10,7 +10,7 @@ import * as getters from './getters';
 const store = new Vuex.Store({
 	strict: true,
 	state: {
-        activeVideoId: null,
+        activeSectionId: null,
         clientHeight: null
 	},
 	getters,

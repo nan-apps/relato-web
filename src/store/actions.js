@@ -1,7 +1,7 @@
 //import * as services from '../services';
 
-export const ACTIVE_VIDEO = ({commit}, {videoId}) => {
-	commit( 'CHANGE_ACTIVE_VIDEO_ID', videoId  );
+export const ACTIVE_SECTION = ({commit}, sectionId) => {
+	commit( 'CHANGE_ACTIVE_SECTION_ID', sectionId  );
 }
 
 export const SET_CLIENT_HEIGHT = ({commit}, clientHeight) => {
