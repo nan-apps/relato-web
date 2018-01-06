@@ -18,10 +18,7 @@ div.column{
 
 div.row{
 	display: flex;
-	flex-direction: row;
-	@media screen and (max-width : $breakMobile) {
-	    flex-direction: column;
-	}
+	flex-direction: row;	
 }
 
 
@@ -50,17 +47,18 @@ div.pic-container{
 	background-color: $imgBackgroundColor;
 	img.pic{
 		display: block;
-		margin: auto;
-		@media screen and (max-width: $breakMobile) {
-			width: 100%;
-			height: auto !important;
-		}
+		margin: auto;		
 	}
 }
 
 .color-inverse{
 	background-color: $fontColor;
 	color: $backgroundColor;
+}
+
+.loader-container{
+	text-align: center;
+	font-size: $textFontSize;
 }
 
 /* helpers */
@@ -72,6 +70,10 @@ div.pic-container{
 .align-middle{
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+.align-center p{
+	text-align: center !important;
 }
 
 .row{
@@ -94,4 +96,13 @@ div.pic-container{
 }
 .fade-enter, .fade-leave-to{
   opacity: 0
+}
+
+
+/* Mobile */
+@media (min-width: $breakMobile) {
+	width: 100%;
+	height: auto !important;
+	flex-direction: column;
+
 }

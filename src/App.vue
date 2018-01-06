@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    
+
     <column v-fullpage="fullpageOptions" >
 
       <section-page class="active" :type="'column'" :clientHeight="clientHeight" >
           <the-title>pisadas</the-title>
           <subtitle>Un cuento web y de terror</subtitle>
-          <txt class="align-bottom" >
+          <txt v-show="!loading" class="align-bottom" >
             Tomás estaba durmiendo cómodamente en su cama, entre sus sabanas y frazadas. Al no estar su hermano en la casa esa noche podía relajarse aún más, sin tener que soportar sus ronquidos.
           </txt>
-          <subtitle class="muted" >Scrollea &#8595;</subtitle>
-      </section-page>
 
-      
+          <subtitle class="muted" >
+            <pulse-loader :size="'8px'" :loading="loading"></pulse-loader>
+            <span v-show="!loading" >&#8595; Scrollea &#8595;</span>
+          </subtitle>
+      </section-page>
 
       <!-- v-observe-visibility="(isVisible, entry) => toggleSection(isVisible, entry, 'img-1')"  -->
 
@@ -32,7 +34,7 @@
       <section-page :type="'column'" 
                     :clientHeight="clientHeight" >
           <txt :clientHeight="clientHeight*0.2" 
-                class="align-middle" >
+                class="align-middle align-center" >
               Brujas que rasguñaban su ventana, rugidos de leones, gritos de fantasmas y duendes en el patio.
           </txt>
           <pic section-id="img-2"
@@ -59,11 +61,17 @@
       </section-page>  
        
       <section-page :type="'column'" :clientHeight="clientHeight" >         
-        <txt :clientHeight="clientHeight*0.4" >
+        <txt :clientHeight="clientHeight*0.3" >
           Tomás fue creciendo y dejaron de preocuparle los monstruos y fantasmas que él creía que habitaban su casa. Hasta de su luz de noche se deshizo. Su hermano se volvió menos molesto y sus padres más tranquilos. Todo cambiaba con el tiempo, menos la casa. Tal vez no le daban miedo los ruidos y las sombras, pero eso no significaba que no estuvieran ahí. Y cuando Tomás creyó haber acabado con todos sus miedos, ocurrió lo peor.
         </txt>
-        <txt :clientHeight="clientHeight*0.4" >
+        <txt :clientHeight="clientHeight*0.1" class="align-center align-middle" >
+          ...
+        </txt>
+        <txt :clientHeight="clientHeight*0.3" >
            Una noche, despertó agitado y sudado por una pesadilla. Tardó un poco en darse cuenta que estaba tapado completamente con sus sabanas, sin poder ver su cuarto. Se dispuso a destaparse e ir al baño cuando sintió el crujir del piso del pasillo. Supuso que sería su hermano volviendo de alguna salida, pero tuvo el presentimiento de que no debía salir todavía de su cama. Se quedó muy quieto en esta, con las sabanas pegadas a su cuerpo por el sudor, conteniendo su respiración para escuchar mejor.
+        </txt>
+        <txt :clientHeight="clientHeight*0.1" class="align-center align-middle" >
+          ...
         </txt>
         <txt :clientHeight="clientHeight*0.2" >
            Su corazón pego un vuelco cuando escucho un paso en el pasillo, pero lo que más le asustó fue que este paso venia seguido por el tintinear de una cadena al arrastrarse por el piso.
@@ -127,8 +135,11 @@
   import Subtitle from './components/Subtitle.vue';
   import Txt from './components/Txt.vue';
   import SectionPage from './components/SectionPage.vue';
+  import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
   import $ from "jquery";
   import fullpage from "fullpage.js"
+
 
   Vue.directive('fullpage', function(el, binding) {
     $(el).fullpage(binding.value)
@@ -136,16 +147,21 @@
 
   export default {
     name: 'app',
-    components:{ Column, Pic, TheTitle, Subtitle, Txt, SectionPage },
+    components:{ Column, Pic, TheTitle, Subtitle, Txt, SectionPage, PulseLoader },
     data () {
       return {
         fullpageOptions: {
-          
-        }
+          dragAndMove: "vertical",
+          responsiveWidth: 768
+        },
+        loading: true
       }
     },
     mounted: function(){
       this.$store.dispatch('SET_CLIENT_HEIGHT', document.documentElement.clientHeight);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     computed: Object.assign(
       Vuex.mapState({
